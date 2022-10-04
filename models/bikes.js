@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const {Schema, model } = mongoose
 
 const bikeSchema = new Schema({
-    Style: String,
+    style: String,
     color: String,
     fast: Boolean
 })

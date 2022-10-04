@@ -35,8 +35,70 @@ app.get("/", (req, res) => {
  
 })
 
-// app.get("/bikes/seed", (req, res) => {}
+app.get("/bikes/seed", (req, res) => {
 
+    const startBikes = [
+        { style: "Mtb", color: "black", fast: true },
+        { style: "Road", color: "red", fast: true },
+        { style: "EBike", color: "white", fast: true },
+    ]
+    Bike.deleteMany({})
+        .then(() => {
+            
+            Bike.create(startBikes)
+                .then(data => {
+                    res.json(data)
+                })
+        })
+})
+app.get("/bikes", (req, res) => {
 
+    Bike.find({})
+        .then(bikes => {
+          
+            res.json({ bikes: bikes })
+        })
+        .catch(err => console.log(err))
+})
+
+app.post("/bikes", (req, res) => {
+
+    Bike.create(req.body)
+        .then(bike => {
+            res.status(201).json({ bike: bike.toObject() })
+        })
+        .catch(error => console.log(error))
+})
+app.put("/bikes/:id", (req, res) => {
+    
+    const id = req.params.id
+    Bike.findByIdAndUpdate(id, req.body, { new: true })
+    .then(bike => {
+        console.log('the bike from update', bike)
+        res.sendStatus(204)
+    })
+    .catch(err => console.log(err))
+})
+app.delete("/bikes/:id", (req, res) => {
+    
+    const id = req.params.id
+    
+    Bike.findByIdAndRemove(id)
+        
+        .then(() => {
+            res.sendStatus(204)
+        })
+        
+        .catch(err => res.json(err))
+})
+app.get("/bikes/:id", (req, res) => {
+    const id = req.params.id
+
+    Bike.findById(id)
+        .then(bike=> {
+            res.json ({bike: bike })
+        })
+        .catch(err => console.log(err))
+})
 const PORT = process.env.PORT
 app.listen(PORT, () => console.log(`Now listening to the sweet sounds of port: ${PORT}`))
