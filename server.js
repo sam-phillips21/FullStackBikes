@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
  
 })
 
-app,use('/bikes', BikeRouter)
+app.use('/bikes', BikeRouter)
 app.use('/users', UserRouter)
 
 const PORT = process.env.PORT

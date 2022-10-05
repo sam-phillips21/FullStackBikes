@@ -4,22 +4,7 @@ const Bike = require('../models/bikes')
 
 const router = express.Router()
 
-// router.get("/bikes/seed", (req, res) => {
 
-//     const startBikes = [
-//         { style: "Mtb", color: "black", fast: true },
-//         { style: "Road", color: "red", fast: true },
-//         { style: "EBike", color: "white", fast: true },
-//     ]
-//     Bike.deleteMany({})
-//         .then(() => {
-            
-//             Bike.create(startBikes)
-//                 .then(data => {
-//                     res.json(data)
-//                 })
-//         })
-// })
 router.get("/", (req, res) => {
 
     Bike.find({})
