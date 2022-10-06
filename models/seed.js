@@ -15,19 +15,24 @@ db.on('open', () => {
         { style: "EBike", color: "white", fast: true },
     ]
     Bike.deleteMany({})
-        .then(deletedBikes => {
+         .then(deletedBikes => {
+            console.log('this is what is removed', deletedBikes)
             
         Bike.create(startBikes)
             .then(data => {
-                console.log(error)
-                    db.close()
-                })
+                console.log('created bikes', data)
+                db.close()
+         })
+    
+        .catch(error => {
+            console.log(error)
+            db.close()
+             })
         })
         .catch(error => {
             console.log(error)
             db.close()
         })
-
-})
+    })
 
 

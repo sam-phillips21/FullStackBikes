@@ -5,6 +5,7 @@ const express = require("express") // import express
 const path = require("path") // import 
 const BikeRouter = require('./controllers/bikeControllers')
 const UserRouter = require('./controllers/userControllers')
+const CommentRouter = require('./controllers/commentControllers')
 const middleware = require('./utils/middleware')
 
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 })
 
 app.use('/bikes', BikeRouter)
+app.use('/comments', CommentRouter)
 app.use('/users', UserRouter)
 
 const PORT = process.env.PORT
