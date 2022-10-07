@@ -9,14 +9,14 @@ const CommentRouter = require('./controllers/commentControllers')
 const middleware = require('./utils/middleware')
 
 
-const app = express()
-
+// const app = express()
+const app = require('liquid-express-views')(express())
 
 middleware(app)
 
 app.get("/", (req, res) => {
-    res.send("Your bike is running, better go out and ride it")
- 
+    // res.send("Your bike is running, better go out and ride it")
+ res.render('index.liquid')
 })
 
 app.use('/bikes', BikeRouter)

@@ -1,0 +1,26 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+    <div class="container-md">
+        <article>
+            <h2>{{bike.name}}</h2>
+            <h4>
+                {% if bike.fast %}
+                    Enjoy
+                {% else %}
+                    Pedal Faster
+                {% endif %}
+            </h4>
+            <h4>The color of this bike is: {{bike.color}}</h4>
+            {% if bike.owner == userId %}
+                <div class="btn-group">
+                    {%- comment -%} first button will send us to the edit page {%- endcomment -%}
+                    <a class="btn btn-primary" href="/bikes/edit/{{bike.id}}">Edit</a>
+                    {%- comment -%} the second button(which will actually be a form, will send a DELETE request) {%- endcomment -%}
+                    <form action="/bikes/{{bike.id}}?_method=DELETE" method="POST">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            {% endif %}
+        </article>
+    </div>
+{% endblock %}

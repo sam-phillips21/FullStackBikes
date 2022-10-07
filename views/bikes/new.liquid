@@ -1,0 +1,37 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+
+    <div class="container-sm">
+        <form action="/bikes" method="POST">
+            <fieldset>
+                <legend>Create New Bike</legend>
+                <label class="form-label">Name: </label>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    placeholder="enter the name of the bike"
+                >
+                <label class="form-label">Color: </label>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="color"
+                    placeholder="what color is the bike?"
+                >
+                <label class="form-label">Fast: </label>
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="fast"
+                >
+            </fieldset>
+            <input
+                class="btn btn-success"
+                type="submit"
+                value="Create New bike"
+            >
+        </form>
+    </div>
+
+{% endblock %}

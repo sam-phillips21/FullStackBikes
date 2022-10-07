@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs')
 
 const router = express.Router()
 
+router.get('/signup', (req, res)=> {
+    res.render('users/signup')
+})
 router.post('/signup', async (req, res) => {
     // this route will receive a req.body
     console.log('this is our initial req.body', req.body)
@@ -28,6 +31,9 @@ router.post('/signup', async (req, res) => {
         })
 })
 
+router.get('/login', (req, res)=> {
+    res.render('users/login')
+})
 // a route for log in
 router.post('/login', async (req, res) => {
     // get our data from the req body, saved as separate variables
@@ -67,7 +73,13 @@ router.post('/login', async (req, res) => {
             res.json(err)
         })
 })
+router.get('/logout', (req, res) => {
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
 
+    res.render('users/logout', { username, loggedIn, userId})
+})
 // a route for log out 
 router.delete('/logout', (req, res) => {
     // destroy the session(eventually we'll redirect)
