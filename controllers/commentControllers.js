@@ -35,11 +35,14 @@ router.post("/:bikeId", (req, res) => {
             return bike.save()
         })
         .then(bike => {
-            res.status(200).json({ bike: bike })
+            // res.status(200).json({ bike: bike })
+            res.redirect(`/bikes/${bike.id}`)
+
         })
         // do something else if it doesn't work
         //  --> send some kind of error depending on what went wrong
-        .catch(error => console.log(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
+
 })
 
 // DELETE
@@ -62,19 +65,25 @@ router.delete('/delete/:bikeId/:commId', (req, res) => {
                     // here's another built in method
                     theComment.remove()
 
-                    res.sendStatus(204)
+                    // res.sendStatus(204)
                     // return the saved fruit
                     // return 
                     bike.save()
+                    res.redirect(`/bikes/${bike.id}`)
+
                 } else {
-                    res.sendStatus(401)
+                    const err = 
+                    'you%20are%20not%20authorized%20for%20this%20action'
+                    res.redirect(`/error?error=${err}`)
+                    
                 }
             } else {
-                res.sendStatus(401)
+                const err = 'you%20are%20not%20authorized%20for%20this%20action'
+                res.redirect(`/error?error=${err}`)
             }
         })
         // send an error if error
-        .catch(error => console.log(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
 
 })
 

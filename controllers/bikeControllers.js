@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
             // res.json({ bikes: bikes })
             res.render('bikes/index', {bikes, username, loggedIn, userId})
         })
-        .catch(err => console.log(err))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 router.get('/new', (req, res) => {
     const username = req.session.username
@@ -32,10 +32,13 @@ router.post("/", (req, res) => {
 
     Bike.create(req.body)
         .then(bike => {
+            const username = req.session.username
+            const loggedIn = req.session.loggedIn
+            const userId = req.session.userId
             // res.status(201).json({ bike: bike.toObject() })
             res.redirect('/bikes')
         })
-        .catch(error => console.log(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 router.get('/mine', (req, res) => {
@@ -49,29 +52,50 @@ router.get('/mine', (req, res) => {
 
             res.render('bikes/index', { bikes, username, loggedIn, userId })
         })
-        .catch(error => res.json(error))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
+// GET request to show the update page
 router.get("/edit/:id", (req, res) => {
-    res.send('edit page')
+    const username = req.session.username
+    const loggedIn = req.session.loggedIn
+    const userId = req.session.userId
+
+    const bikeId = req.params.id
+
+    Bike.findById(bikeId)
+        // render the edit form if there is a fruit
+        .then(bike => {
+            res.render('bikes/edit', { bike, username, loggedIn, userId })
+        })
+        // redirect if there isn't
+        .catch(error => {
+            res.redirect(`/error?error=${err}`)
+        })
+    // res.send('edit page')
 })
 
 router.put("/:id", (req, res) => {
-    
     const id = req.params.id
+    req.body.fast = req.body.fast === 'on' ? true : false
 
 
     Bike.findById(id)
     .then(bike => {
         if (bike.owner == req.session.userId){
-            res.sendStatus(204)
+            // res.sendStatus(204)
             return bike.updateOne(req.body)
+            // res.redirect(`/fruits/${fruit.id}`)
         } else {
             res.sendStatus(401)
         }
       
     })
-    .catch(err => console.log(err))
+    .then(() => {
+        res.redirect(`/bikes/${id}`)
+    })
+
+    .catch(err => res.redirect(`/error?error=${err}`))
 })
 // router.delete("/:id", (req, res) => {
     
@@ -104,7 +128,7 @@ router.delete('/:id', (req, res) => {
             res.redirect('/bikes')
         })
         .catch(error => {
-            res.json({ error })
+            res.redirect(`/error?error=${err}`)
         })
 })
   
@@ -120,7 +144,7 @@ router.get("/:id", (req, res) => {
             // res.json ({bike: bike })
             res.render('bikes/show', { bike, username, loggedIn, userId })
         })
-        .catch(err => console.log(err))
+        .catch(err => res.redirect(`/error?error=${err}`))
 })
 
 module.exports = router

@@ -1,11 +1,12 @@
 {% layout 'layout.liquid' %}
 {% block content %}
+    {% if bikes.length > 0%}
     <div>
         <h2 class="display-6">All Bikes</h2>
         <div class="row">
             {% for bike in bikes %}
-                <div class="card">
-                    <h5 class="card-header">{{bike.name}}</h5>
+                <div class="card" style="width: 18rem;">
+                    <h5 class="card-header">{{bike.style}}</h5>
                     <div class="card-body">
                         <h5 class="card-title">
                             {% if bike.fast %}
@@ -14,13 +15,20 @@
                                 Go Faster
                             {% endif %}
                         </h5>
-                        <p class="card-text">The color of this {{bike.name}} is {{bike.color}}</p>
+                        <p class="card-text">The color of this {{bike.style}} is {{bike.color}}</p>
+                         <div class="colorBox" style="background-color: {{bike.color}}">
+                         </div>
                          <a class="btn btn-info" href="/bikes/{{bike.id}}">
-                            View {{bike.name}}
+                            View {{bike.style}}
                          </a>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+    {% else %}
+        <div>
+            <h2 class="display-6">No bikes yet... time to add some!</h2>
+        </div>
+    {% endif %}
 {% endblock %}

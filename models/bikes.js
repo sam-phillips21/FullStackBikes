@@ -18,6 +18,6 @@ const bikeSchema = new Schema({
 }, { timestamps: true })
 
 
-const Bike = model("bike", bikeSchema)
+const Bike = model("Bike", bikeSchema)
 
 module.exports = Bike

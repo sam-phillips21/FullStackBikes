@@ -1,0 +1,45 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+
+    <div class="container-sm">
+        {%- comment -%} change the action {%- endcomment -%}
+        {%- comment -%} add values to input fields {%- endcomment -%}
+        {%- comment -%} add a back button {%- endcomment -%}
+        <form action="/bikes/{{bike.id}}?_method=PUT" method="POST">
+            <fieldset>
+                <legend>Edit {{bike.style}}</legend>
+                <label class="form-label">Name: </label>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    placeholder="enter the name of the bike"
+                    value="{{ bike.style }}"
+                >
+                <label class="form-label">Color: </label>
+                <input
+                    class="form-control"
+                    type="text"
+                    name="color"
+                    placeholder="what color is the bike?"
+                    value="{{ bike.color }}"
+                >
+                <label class="form-label">fast: </label>
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="fast"
+                    {% if bike.fast %}
+                        checked
+                    {% endif %}
+                >
+            </fieldset>
+            <input
+                class="btn btn-success"
+                type="submit"
+                value="Edit {{bike.style}}"
+            >
+        </form>
+    </div>
+
+{% endblock %}
