@@ -2,7 +2,7 @@ require("dotenv").config() // Load ENV Variables
 const mongoose = require("mongoose") // import mongoose
 
 
-const DATABASE_URL = process.env.DATABASE_URL
+const DEPLOYED_URL = process.env.DEPLOYED_URL
 
 const CONFIG = {
     useNewUrlParser: true,
