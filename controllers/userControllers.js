@@ -81,7 +81,7 @@ router.post('/login', async (req, res) => {
 })
 router.get('/logout', (req, res) => {
 
-        re.session.destroy(() => {
+        req.session.destroy(() => {
             res.redirect('/')
         })
     // const username = req.session.username
